@@ -1,0 +1,24 @@
+{
+  "name": "aps-2021",
+  "version": "1.0.0",
+  "description": "APS - Primeiro semestre de 2021",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bernardo2512/aps-2021.git"
+  },
+  "author": "B. LUZ, B. SOUZA, V. COSTA, G. ALMEIDA",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bernardo2512/aps-2021/issues"
+  },
+  "homepage": "https://github.com/bernardo2512/aps-2021#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.7"
+  }
+}
