@@ -1,0 +1,17 @@
+{
+    "type": "postgres",
+    "host": "187.49.232.153",
+    "port": 3012,
+    "username": "postgres",
+    "password": "aps-1234",
+    "database": "aps",
+    "entities": [
+        "./src/entities/**.ts"
+    ],
+    "migrations": [
+        "./src/database/migrations/**/*.ts"
+    ],
+    "cli": {
+        "migrationsDir": "./src/database/migrations"
+    }
+}
