@@ -38,7 +38,7 @@ class TaskService {
     async update(id: string) {
         this.taskRepository = await this.serviceConnection.open();
 
-        this.taskRepository.update(
+        await this.taskRepository.update(
             id,
             {
                 isDone: true
