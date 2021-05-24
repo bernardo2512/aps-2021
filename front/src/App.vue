@@ -1,0 +1,75 @@
+<template>
+  <div class="container">
+    <h1>Todo-list</h1>
+    <hr />
+
+    <Form v-on:add-task="addTask"></Form>
+
+    <Tasks :tasks="tasks" />
+    <hr />
+  </div>
+</template>
+
+<script>
+import Form from "./components/Form";
+import Tasks from "./components/Tasks.vue";
+
+export default {
+  name: "app",
+  components: {
+    Form,
+    Tasks,
+  },
+  data() {
+    return {
+      tasks: [],
+    };
+  },
+  methods: {
+    removeTask(index) {
+      this.tasks.splice(index, 1);
+    },
+    addTask(task) {
+      this.tasks.push(task);
+    },
+  },
+  computed: {
+    allTasks() {
+      return this.tasks.map((task) => ({
+        ...task,
+        name: task.name.trim() === "" ? "Anonimo" : task.name,
+      }));
+    },
+  },
+  watch: {
+    tasks(val) {
+      console.log("val", val);
+    },
+  },
+  mounted() {
+    fetch("http://187.49.232.153:3011/tasks", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    })
+      .then((res) => res.json())
+      .then((resJson) => (this.tasks = resJson));
+
+    // this.tasks = [
+    //     {
+    //         name: "Gui",
+    //         description: "Baianinho vai mamar",
+    //         status: false,
+    //     },
+    //     {
+    //         name: "Bernardo",
+    //         description: "Baianinho vai mamar o meu tbm",
+    //         status: false,
+    //     },
+    // ]
+  },
+};
+</script>
+
