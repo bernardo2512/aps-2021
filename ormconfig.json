@@ -1,7 +1,7 @@
 {
     "type": "postgres",
-    "host": "187.49.232.153",
-    "port": 3012,
+    "host": "localhost",
+    "port": 5432,
     "username": "postgres",
     "password": "aps-1234",
     "database": "aps",
