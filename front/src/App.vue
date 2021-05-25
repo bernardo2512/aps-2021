@@ -47,7 +47,7 @@ export default {
     },
   },
   mounted() {
-    fetch("http://187.49.232.153:3011/tasks", {
+    fetch("http://187.49.232.153:3013/tasks", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
