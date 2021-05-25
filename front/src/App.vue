@@ -5,8 +5,11 @@
 
     <Form v-on:add-task="addTask"></Form>
 
-    <Tasks :tasks="tasks" />
+    <Tasks :tasks="tasks" v-on:completed="addCompleted"/>
     <hr />
+
+    <h1>Concluidas</h1>
+    <Tasks :tasks="completedTasks" />
   </div>
 </template>
 
@@ -23,6 +26,7 @@ export default {
   data() {
     return {
       tasks: [],
+      completedTasks: [],
     };
   },
   methods: {
@@ -32,6 +36,10 @@ export default {
     addTask(task) {
       this.tasks.push(task);
     },
+    addCompleted(task) {
+      task.isDone = true;
+      this.completedTasks.push(task);
+    }
   },
   computed: {
     allTasks() {
@@ -41,13 +49,8 @@ export default {
       }));
     },
   },
-  watch: {
-    tasks(val) {
-      console.log("val", val);
-    },
-  },
   mounted() {
-    fetch("http://187.49.232.153:3011/tasks", {
+    fetch("http://187.49.232.153:3013/tasks", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -55,21 +58,16 @@ export default {
       },
     })
       .then((res) => res.json())
-      .then((resJson) => (this.tasks = resJson));
-
-    // this.tasks = [
-    //     {
-    //         name: "Gui",
-    //         description: "Baianinho vai mamar",
-    //         status: false,
-    //     },
-    //     {
-    //         name: "Bernardo",
-    //         description: "Baianinho vai mamar o meu tbm",
-    //         status: false,
-    //     },
-    // ]
-  },
+      .then((resJson) => {
+        for (let i = 0; i < resJson.length; i++) {
+          if (resJson[i].isDone === true) {
+            this.completedTasks.push(resJson[i]);
+          } else {
+            this.tasks.push(resJson[i]);
+          }
+        }
+      });
+  }
 };
 </script>
 

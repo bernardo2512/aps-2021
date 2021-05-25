@@ -4,19 +4,20 @@
     <div
       class="list-group-item"
       v-for="(task, index) in allTasks"
-      v-bind:key="index"
+      v-bind:key="task.id"
     >
       <span class="comment__author">
-        Autor:
-        <strong>{{ task.name }}</strong>
+        <strong>Autor:</strong> {{ task.name }}
       </span>
       <p>{{ task.description }}</p>
       <a
         href="#"
-        class="btn btn-success delete"
-        v-on:click.prevent="removeTask(index)"
-        >Feito</a
+        class="btn btn-success"
+        v-if="!task.isDone"
+        v-on:click.prevent="updateTask(index, task)"
       >
+        Feito
+      </a>
     </div>
   </div>
 </template>
@@ -27,8 +28,15 @@ export default {
     tasks: Array,
   },
   methods: {
-    removeTask(index) {
+    updateTask(index, task) {
+      fetch(`http://187.49.232.153:3013/tasks/${task.id}`, {
+        method: "PUT",
+      })
+        .then((res) => res.json())
+        .then((resJson) => console.log(resJson));
+
       this.tasks.splice(index, 1);
+      this.$emit('completed', task)
     },
     addTask(task) {
       this.tasks.push(task);
@@ -40,11 +48,6 @@ export default {
         ...task,
         name: task.name.trim() === "" ? "Anonimo" : task.name,
       }));
-    },
-  },
-  watch: {
-    tasks(val) {
-      console.log("val", val);
     },
   },
 };

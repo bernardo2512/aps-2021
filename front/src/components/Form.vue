@@ -19,7 +19,9 @@
       ></textarea>
     </p>
 
-    <button class="btn btn-primary" v-on:click="addTask">Adicionar Tarefa</button>
+    <button class="btn btn-primary" v-on:click="addTask">
+      Adicionar Tarefa
+    </button>
   </div>
 </template>
 
@@ -41,6 +43,18 @@ export default {
         name: this.name,
         description: this.description,
       });
+
+      fetch("http://187.49.232.153:3013/tasks", {
+        method: "POST",
+        body: JSON.stringify({
+          name: this.name,
+          description: this.description
+        }),
+        headers: {"Content-type": "application/json; charset=UTF-8"}
+      })
+        .then(res => res.json())
+        .then(resJson => console.log(resJson))
+        .catch(err => console.log(err));
 
       this.name = "";
       this.description = "";
