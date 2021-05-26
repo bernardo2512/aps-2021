@@ -3,11 +3,11 @@
     <p v-if="tasks.length <= 0">Sem tarefas...</p>
     <div
       class="list-group-item"
-      v-for="(task, index) in tasks"
+      v-for="(task, index) in allTasks"
       v-bind:key="task.id"
     >
       <span class="comment__author">
-        <strong>Título:</strong> {{ task.name }}
+        <strong>Autor:</strong> {{ task.name }}
       </span>
       <p>{{ task.description }}</p>
       <a
@@ -41,6 +41,14 @@ export default {
     addTask(task) {
       this.tasks.push(task);
     },
-  }
+  },
+  computed: {
+    allTasks() {
+      return this.tasks.map((task) => ({
+        ...task,
+        name: task.name.trim() === "" ? "Anonimo" : task.name,
+      }));
+    },
+  },
 };
 </script>
