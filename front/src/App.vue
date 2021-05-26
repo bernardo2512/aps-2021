@@ -3,9 +3,9 @@
     <h1>Todo-list</h1>
     <hr />
 
-    <Form v-on:add-task="addTask" :tasks="tasks"></Form>
+    <Form v-on:add-task="addTask"></Form>
 
-    <Tasks :tasks="tasks" v-on:completed="addCompleted" />
+    <Tasks :tasks="tasks" v-on:completed="addCompleted"/>
     <hr />
 
     <h1>Concluidas</h1>
@@ -39,6 +39,14 @@ export default {
     addCompleted(task) {
       task.isDone = true;
       this.completedTasks.push(task);
+    }
+  },
+  computed: {
+    allTasks() {
+      return this.tasks.map((task) => ({
+        ...task,
+        name: task.name.trim() === "" ? "Anonimo" : task.name,
+      }));
     },
   },
   mounted() {
@@ -59,7 +67,7 @@ export default {
           }
         }
       });
-  },
+  }
 };
 </script>
 

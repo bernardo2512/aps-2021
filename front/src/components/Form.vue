@@ -2,7 +2,7 @@
   <div class="form-group">
     <p>
       <input
-        placeholder="Título"
+        placeholder="nome"
         type="text"
         name="author"
         class="form-control"
@@ -19,7 +19,7 @@
       ></textarea>
     </p>
 
-    <button class="btn btn-primary" @click="addTask">
+    <button class="btn btn-primary" v-on:click="addTask">
       Adicionar Tarefa
     </button>
   </div>
@@ -30,20 +30,12 @@ export default {
   data() {
     return {
       name: "",
-      description: ""
+      description: "",
     };
-  },
-  props: {
-    tasks: Array
   },
   methods: {
     addTask() {
-      const isEqual = this.tasks.find(task => {
-        return this.name.toLowerCase() === task.name.toLowerCase()
-      });
-
-      if (isEqual || this.name.trim() === '' || this.description.trim() === '') {
-        window.alert('Erro ao adicionar a tarefa.');
+      if (this.description.trim() === "") {
         return;
       }
 
