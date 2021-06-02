@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     updateTask(index, task) {
-      fetch(`http://187.49.232.153:3013/tasks/${task.id}`, {
+      fetch(`http://187.18.37.190:3013/tasks/${task.id}`, {
         method: "PUT",
       })
         .then((res) => res.json())
