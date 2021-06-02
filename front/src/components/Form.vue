@@ -47,12 +47,7 @@ export default {
         return;
       }
 
-      this.$emit("add-task", {
-        name: this.name,
-        description: this.description,
-      });
-
-      fetch("http://187.49.232.153:3013/tasks", {
+      fetch("http://187.18.37.190:3013/tasks", {
         method: "POST",
         body: JSON.stringify({
           name: this.name,
@@ -61,7 +56,14 @@ export default {
         headers: {"Content-type": "application/json; charset=UTF-8"}
       })
         .then(res => res.json())
-        .then(resJson => console.log(resJson))
+        .then(resJson => {
+          this.$emit("add-task", {
+            name: resJson.name,
+            description: resJson.description,
+            id: resJson.id,
+            isDone: resJson.isDone
+          });
+        })
         .catch(err => console.log(err));
 
       this.name = "";
